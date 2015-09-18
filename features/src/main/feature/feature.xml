@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features name="spring-osgi-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0">
+
+    <!-- Spring DM support -->
+    <feature name="spring-dm" description="Spring DM support" version="${spring.osgi.version}">
+        <bundle dependency="true" start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cglib/${cglib.bundle.version}</bundle>
+        <bundle start-level="30">mvn:org.springframework.osgi/spring-osgi-io/${spring.osgi.version}</bundle>
+        <bundle start-level="30">mvn:org.springframework.osgi/spring-osgi-core/${spring.osgi.version}</bundle>
+    </feature>
+    <!-- Spring 3.2.x support -->
+
+    <feature name="spring" description="Spring 3.2.x support" version="${spring.version}">
+        <bundle dependency="true" start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aopalliance/${aopalliance.bundle.version}</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cglib/${cglib.bundle.version}</bundle>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-core/${spring.bundle.version}</bundle>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-expression/${spring.bundle.version}</bundle>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-beans/${spring.bundle.version}</bundle>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-aop/${spring.bundle.version}</bundle>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-context/${spring.bundle.version}</bundle>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-context-support/${spring.bundle.version}</bundle>
+
+    </feature>
+
+    <feature name="spring-aspects" description="Spring 3.2.x AOP support" version="${spring.version}">
+        <feature>spring</feature>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-aspects/${spring.bundle.version}</bundle>
+    </feature>
+
+    <feature name="spring-instrument" description="Spring 3.2.x Instrument support" version="${spring.version}">
+        <feature>spring</feature>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-instrument/${spring.bundle.version}</bundle>
+    </feature>
+
+    <feature name="spring-jdbc" description="Spring 3.2.x JDBC support" version="${spring.version}">
+        <feature>spring-tx</feature>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-jdbc/${spring.bundle.version}</bundle>
+    </feature>
+
+    <feature name="spring-jms" description="Spring 3.2.x JMS support" version="${spring.version}">
+        <feature>spring-tx</feature>
+        <bundle start-level="10">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/${geronimo.jta-spec.version}</bundle>
+        <bundle start-level="10">mvn:org.apache.geronimo.specs/geronimo-jms_1.1_spec/${geronimo.jms-spec.version}</bundle>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-jms/${spring.bundle.version}</bundle>
+    </feature>
+
+    <feature name="spring-test" description="Spring 3.2.x Test support" version="${spring.version}">
+        <feature>spring</feature>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-test/${spring.bundle.version}</bundle>
+    </feature>
+
+    <feature name="spring-orm" description="Spring 3.2.x ORM support" version="${spring.version}">
+        <feature>spring-jdbc</feature>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-orm/${spring.bundle.version}</bundle>
+    </feature>
+
+    <feature name="spring-oxm" description="Spring 3.2.x OXM support" version="${spring.version}">
+        <feature>spring</feature>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-oxm/${spring.bundle.version}</bundle>
+    </feature>
+
+    <feature name="spring-tx" description="Spring 3.2.x Transaction (TX) support" version="${spring.version}">
+        <feature>spring</feature>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-tx/${spring.bundle.version}</bundle>
+    </feature>
+
+    <feature name="spring-web" description="Spring 3.2.x Web support" version="${spring.version}">
+        <feature>spring</feature>
+        <feature>http</feature>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-web/${spring.bundle.version}</bundle>
+        <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-webmvc/${spring.bundle.version}</bundle>
+    </feature>
+
+
+    <feature name="spring-osgi" description="Spring OSGI Support ${project.version}" version="${project.version}">
+        <feature>spring</feature>
+        <bundle start-level="10">mvn:javax.annotation/javax.annotation-api/1.2</bundle>
+        <bundle start-level="30">mvn:spring-osgi/spring.osgi.core/${project.version}</bundle>
+    </feature>
+
+    <feature name="spring-data-jpa" description="Spring Data JPA ${spring.data.jpa.version}" version="${spring.data.jpa.version}">
+        <feature>spring</feature>
+        <feature>spring-orm</feature>
+        <feature>spring-tx</feature>
+        <bundle start-level="30">mvn:org.springframework.data/spring-data-commons/${spring.data.commons.version}</bundle>
+        <bundle start-level="30">mvn:org.springframework.data/spring-data-jpa/${spring.data.jpa.version}</bundle>
+    </feature>
+
+    <feature name="transaction" description="OSGi Transaction Manager" version="1.0.0">
+        <details>JTA implementation provided by Apache Aries Transaction 1.0.0</details>
+        <config name="org.apache.aries.transaction">
+            aries.transaction.recoverable = true
+            aries.transaction.timeout = 600
+            aries.transaction.howl.logFileDir = ${karaf.data}/txlog
+            aries.transaction.howl.maxLogFiles = 2
+            aries.transaction.howl.maxBlocksPerFile = 512
+            aries.transaction.howl.bufferSizeKBytes = 4
+        </config>
+        <bundle start-level="30" dependency="true">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
+        <bundle start-level="30" dependency="true">mvn:org.apache.aries/org.apache.aries.util/1.1.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.transaction/org.apache.aries.transaction.manager/1.0.0</bundle>
+        <conditional>
+            <condition>aries-blueprint</condition>
+            <bundle start-level="30">mvn:org.apache.aries.transaction/org.apache.aries.transaction.blueprint/1.0.1</bundle>
+        </conditional>
+    </feature>
+    <feature name="transaction" description="OSGi Transaction Manager" version="1.0.1">
+        <details>JTA implementation provided by Apache Aries Transaction 1.0.1</details>
+        <config name="org.apache.aries.transaction">
+            aries.transaction.recoverable = true
+            aries.transaction.timeout = 600
+            aries.transaction.howl.logFileDir = ${karaf.data}/txlog
+            aries.transaction.howl.maxLogFiles = 2
+            aries.transaction.howl.maxBlocksPerFile = 512
+            aries.transaction.howl.bufferSizeKBytes = 4
+        </config>
+        <bundle start-level="30" dependency="true">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
+        <bundle start-level="30" dependency="true">mvn:org.apache.aries/org.apache.aries.util/1.1.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.transaction/org.apache.aries.transaction.manager/1.0.1</bundle>
+        <conditional>
+            <condition>aries-blueprint</condition>
+            <bundle start-level="30">mvn:org.apache.aries.transaction/org.apache.aries.transaction.blueprint/1.0.1</bundle>
+        </conditional>
+    </feature>
+    <feature name="transaction" description="OSGi Transaction Manager" version="1.1.1">
+        <details>JTA implementation provided by Apache Aries Transaction 1.1.1</details>
+        <config name="org.apache.aries.transaction">
+            aries.transaction.recoverable = true
+            aries.transaction.timeout = 600
+            aries.transaction.howl.logFileDir = ${karaf.data}/txlog
+            aries.transaction.howl.maxLogFiles = 2
+            aries.transaction.howl.maxBlocksPerFile = 512
+            aries.transaction.howl.bufferSizeKBytes = 4
+        </config>
+        <bundle start-level="30" dependency="true">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
+        <bundle start-level="30" dependency="true">mvn:org.apache.aries/org.apache.aries.util/1.1.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.transaction/org.apache.aries.transaction.manager/1.1.1</bundle>
+        <conditional>
+            <condition>aries-blueprint</condition>
+            <bundle start-level="30">mvn:org.apache.aries.transaction/org.apache.aries.transaction.blueprint/1.0.1</bundle>
+        </conditional>
+    </feature>
+    <feature name="connector" description="OSGi support for JCA Connector 1.5" version="2.2.2">
+        <details>OSGi support for JCA Connector 1.5</details>
+        <feature version="[1.0.0,1.0.1)">transaction</feature>
+        <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-j2ee-connector_1.5_spec/2.0.0</bundle>
+        <bundle>mvn:org.apache.geronimo.components/geronimo-connector/2.2.2</bundle>
+    </feature>
+    <feature name="connector" description="OSGi support for JCA Connector 1.6" version="3.1.1">
+        <details>OSGi support for JCA Connector 1.6</details>
+        <feature version="[1.1,2)">transaction</feature>
+        <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-j2ee-connector_1.6_spec/1.0</bundle>
+        <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-validation_1.0_spec/1.1</bundle>
+        <bundle>mvn:org.apache.geronimo.components/geronimo-connector/3.1.1</bundle>
+    </feature>
+    <feature name="jpa" description="OSGi Persistence Container" version="2.0.0">
+        <details>JPA implementation provided by Apache Aries JPA 1.0.2. NB: this feature doesn&quot;t provide the JPA engine, you have to install one by yourself (OpenJPA for instance)</details>
+        <feature version="[1.1,2)">transaction</feature>
+        <bundle start-level="30" dependency="true">mvn:org.apache.geronimo.specs/geronimo-jpa_2.0_spec/1.1</bundle>
+        <bundle start-level="30" dependency="true">mvn:org.apache.aries/org.apache.aries.util/1.1.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.api/1.0.2</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container/1.0.2</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container.context/1.0.4</bundle>
+        <conditional>
+            <condition>aries-blueprint</condition>
+            <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.blueprint.aries/1.0.4</bundle>
+        </conditional>
+    </feature>
+    <feature name="jpa" description="OSGi Persistence Container" version="2.1.0">
+        <details>JPA implementation provided by Apache Aries JPA 1.0.2. NB: this feature doesn't provide the JPA engine, you have to install one by yourself (OpenJPA for instance)</details>
+        <feature version="[1.1,2)">transaction</feature>
+        <bundle start-level="30" dependency="true">mvn:org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final</bundle>
+        <bundle start-level="30" dependency="true">mvn:org.apache.aries/org.apache.aries.util/1.1.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.api/1.0.2</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container/1.0.2</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container.context/1.0.4</bundle>
+        <conditional>
+            <condition>aries-blueprint</condition>
+            <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.blueprint.aries/1.0.4</bundle>
+        </conditional>
+    </feature>
+
+
+    <feature name="jndi" version="3.0.3" description="OSGi Service Registry JNDI access" resolver="(obr)">
+        <details>JNDI support provided by Apache Aries JNDI 1.0.0, including additional service, commands, and MBean.</details>
+        <bundle start-level="30">mvn:org.apache.xbean/xbean-naming/3.18</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.jndi/org.apache.karaf.jndi.core/3.0.3</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jndi/org.apache.aries.jndi.api/1.1.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jndi/org.apache.aries.jndi.core/1.0.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jndi/org.apache.aries.jndi.rmi/1.0.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jndi/org.apache.aries.jndi.url/1.1.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jndi/org.apache.aries.jndi.legacy.support/1.0.0</bundle>
+        <bundle>mvn:org.apache.karaf.jndi/org.apache.karaf.jndi.command/3.0.3</bundle>
+    </feature>
+    <feature name="jdbc" version="3.0.3" description="JDBC service and commands" resolver="(obr)">
+        <details>JDBC support providing service, commands, and MBean.</details>
+        <feature version="[1.1,2)">transaction</feature>
+        <bundle>mvn:commons-pool/commons-pool/1.6</bundle>
+        <bundle>mvn:commons-dbcp/commons-dbcp/1.4</bundle>
+        <bundle>mvn:org.apache.karaf.jdbc/org.apache.karaf.jdbc.core/3.0.3</bundle>
+        <bundle>mvn:org.apache.karaf.jdbc/org.apache.karaf.jdbc.command/3.0.3</bundle>
+    </feature>
+    <feature name="jms" version="3.0.3" description="JMS service and commands" resolver="(obr)">
+        <details>JMS support provinding service, commands, and MBean.</details>
+        <feature version="[1.1,2)">transaction</feature>
+        <bundle>mvn:org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.1.1</bundle>
+        <bundle>mvn:org.apache.karaf.jms/org.apache.karaf.jms.core/3.0.3</bundle>
+        <bundle>mvn:org.apache.karaf.jms/org.apache.karaf.jms.command/3.0.3</bundle>
+    </feature>
+    <feature name="pax-jetty" description="Provide Jetty engine support" version="8.1.15.v20140411" resolver="(obr)">
+        <bundle dependency="true" start-level="30">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.activation-api-1.1/2.2.0</bundle>
+        <bundle dependency="false" start-level="30">mvn:org.apache.geronimo.specs/geronimo-servlet_3.0_spec/1.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:javax.mail/mail/1.4.4</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-annotation_1.1_spec/1.0.1</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-jaspic_1.0_spec/1.1</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.ow2.asm/asm-all/5.0.2</bundle>
+        <bundle start-level="30">mvn:org.eclipse.jetty.aggregate/jetty-all-server/8.1.15.v20140411</bundle>
+    </feature>
+
+    <feature name="pax-tomcat" description="Provide Tomcat engine support" version="7.0.27.1" resolver="(obr)">
+        <bundle start-level="30">mvn:org.apache.geronimo.ext.tomcat/catalina/7.0.27.1</bundle>
+        <bundle start-level="30">mvn:org.apache.geronimo.ext.tomcat/shared/7.0.27.1</bundle>
+        <bundle start-level="30">mvn:org.apache.geronimo.ext.tomcat/util/7.0.27.1</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.java-persistence-api-2.0/2.2.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.javamail-api-1.4/2.2.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-servlet_3.0_spec/1.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-ejb_3.1_spec/1.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-annotation_1.1_spec/1.0.1</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-jaxrpc_1.1_spec/2.1</bundle>
+        <bundle dependency="true" start-level="30">wrap:mvn:javax.servlet.jsp/jsp-api/2.1</bundle>
+    </feature>
+
+    <feature name="pax-http" version="3.1.2" resolver="(obr)" description="Implementation of the OSGI HTTP Service">
+        <details>Allows to publish servlets using pax web and jetty</details>
+        <feature version="[7.0,9.0)">pax-jetty</feature>
+        <bundle dependency="true" start-level="30">mvn:org.ops4j.base/ops4j-base-lang/1.4.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.ops4j.pax.swissbox/pax-swissbox-core/1.7.0</bundle>
+        <bundle dependency="true" start-level="20">mvn:org.ow2.asm/asm-all/5.0.2</bundle>
+        <bundle dependency="true" start-level="20">mvn:org.apache.xbean/xbean-bundleutils/3.18</bundle>
+        <bundle dependency="true" start-level="20">mvn:org.apache.xbean/xbean-reflect/3.18</bundle>
+        <bundle dependency="true" start-level="20">mvn:org.apache.xbean/xbean-finder/3.18</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-api/3.1.2</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-spi/3.1.2</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-runtime/3.1.2</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-jetty/3.1.2</bundle>
+    </feature>
+
+    <feature name="pax-http-whiteboard" description="Provide HTTP Whiteboard pattern support" version="3.1.2" resolver="(obr)">
+        <feature>pax-http</feature>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-jsp/3.1.2</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-extender-whiteboard/3.1.2</bundle>
+    </feature>
+
+    <feature name="pax-war" description="Provide support of a full WebContainer" version="3.1.2" resolver="(obr)">
+        <config name="org.ops4j.pax.url.war">
+            org.ops4j.pax.url.war.importPaxLoggingPackages=true
+        </config>
+        <feature>pax-http-whiteboard</feature>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-jsp/3.1.2</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-extender-war/3.1.2</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-extender-whiteboard/3.1.2</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-deployer/3.1.2</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.ops4j.pax.url/pax-url-war/1.4.2</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.ops4j.pax.url/pax-url-commons/1.4.2</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.ops4j.pax.swissbox/pax-swissbox-bnd/1.7.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.ops4j.pax.swissbox/pax-swissbox-property/1.7.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.ops4j.base/ops4j-base-net/1.4.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.ops4j.base/ops4j-base-lang/1.4.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.ops4j.base/ops4j-base-monitors/1.4.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.ops4j.base/ops4j-base-util-property/1.4.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:biz.aQute.bnd/bndlib/2.2.0</bundle>
+    </feature>
+
+</features>

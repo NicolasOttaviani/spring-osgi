@@ -1,0 +1,243 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>spring-osgi</groupId>
+	<artifactId>spring-osgi</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<name>Spring Osgi</name>
+	<description>Spring Osgi Project</description>
+	<url>https://github.com/NicolasOttaviani/spring-osgi</url>
+    <packaging>pom</packaging>
+
+	<issueManagement>
+		<url>https://github.com/NicolasOttaviani/spring-osgi/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/NicolasOttaviani/spring-osgi</url>
+		<connection>scm:git:git://github.com/NicolasOttaviani/spring-osgi.git</connection>
+		<developerConnection>scm:git:git@github.com:NicolasOttaviani/spring-osgi.git</developerConnection>
+	</scm>
+
+	<properties>
+        <osgi.version>5.0.0</osgi.version>
+        <spring.version>3.2.13.RELEASE</spring.version>
+        <spring.bundle.version>${spring.version}_1</spring.bundle.version>
+        <spring.osgi.version>1.2.1</spring.osgi.version>
+        <cglib.bundle.version>3.0_1</cglib.bundle.version>
+        <bndlib.version>2.4.0</bndlib.version>
+
+        <spring.data.jpa.version>1.6.4.RELEASE</spring.data.jpa.version>
+        <spring.data.commons.version>1.8.4.RELEASE</spring.data.commons.version>
+        <geronimo.jta-spec.version>1.1.1</geronimo.jta-spec.version>
+        <geronimo.jms-spec.version>1.1.1</geronimo.jms-spec.version>
+        <aopalliance.bundle.version>1.0_6</aopalliance.bundle.version>
+
+        <slf4j.version>1.7.7</slf4j.version>
+
+        <mockito.version>1.10.19</mockito.version>
+        <junit.version>4.8</junit.version>
+
+        <karaf.version>3.0.2</karaf.version>
+        <bundle.plugin.version>2.5.4</bundle.plugin.version>
+        <compiler.plugin.version>3.3</compiler.plugin.version>
+        <javadoc.plugin.version>2.10.3</javadoc.plugin.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <bnd.version.policy><![CDATA[[$(version,==,$(@)),$(version,+,$(@)))]]></bnd.version.policy>
+        <obrRepository>NONE</obrRepository>
+	</properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>spring-osgi</groupId>
+                <artifactId>spring.osgi.core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+
+            <!-- Spring data -->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-jpa</artifactId>
+                <version>${spring.data.jpa.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-commons</artifactId>
+                <version>${spring.data.commons.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.core</artifactId>
+                <version>${osgi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.compendium</artifactId>
+                <version>${osgi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${bundle.plugin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bndlib</artifactId>
+                <version>${bndlib.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.plugin.version}</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javadoc.plugin.version}</version>
+			</plugin>
+			<plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${bundle.plugin.version}</version>
+                <inherited>true</inherited>
+                <extensions>true</extensions>
+                <configuration>
+                    <niceManifest>true</niceManifest>
+                    <instructions>
+                        <_removeheaders>Private-Package,Include-Resource,Embed-Dependency,Created-By,Bnd-LastModified,Built-By,Tool</_removeheaders>
+                        <_versionpolicy>${bnd.version.policy}</_versionpolicy>
+                        <_nodefaultversion>true</_nodefaultversion>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.karaf.tooling</groupId>
+                <artifactId>karaf-maven-plugin</artifactId>
+                <version>${karaf.version}</version>
+            </plugin>
+		</plugins>
+	</build>
+
+
+
+    <modules>
+        <module>core</module>
+        <module>features</module>
+        <module>example</module>
+    </modules>
+</project>
