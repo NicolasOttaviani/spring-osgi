@@ -8,14 +8,12 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-import static spring.osgi.config.OsgiInjector.SERVICE_ID_PROPERTY_KEY;
-
 /**
  * Created by nico.
  */
 public class ServiceExporter {
 
-    private final Map<String, ServiceRegistration<?>> registrations = new HashMap<>();
+    private final Map<Integer, ServiceRegistration<?>> registrations = new HashMap<>();
 
     private final BundleContext bundleContext;
 
@@ -23,17 +21,16 @@ public class ServiceExporter {
         this.bundleContext = bundleContext;
     }
 
-    public <T> void registerService(String id, T o, Class<T> clazz, Dictionary<String, String> properties) {
-        checkIdNotRegistered(id);
-        registrations.put(id, bundleContext.registerService(clazz, o, createDefaultProperties(id, properties)));
+    public <T> void registerService(T o, Class<T> clazz, Dictionary<String, String> properties) {
+        registrations.put(o.hashCode(), bundleContext.registerService(clazz, o, properties));
     }
 
-    public <T> void registerService(String id, T o, Class<T> clazz) {
-        this.registerService(id, o, clazz, createDefaultProperties(id));
+    public <T> void registerService(T o, Class<T> clazz) {
+        this.registerService(o, clazz, createDefaultProperties());
     }
 
-    public void unregister (String id){
-        ServiceRegistration<?> registration = this.registrations.get(id);
+    public void unregister (Object o){
+        ServiceRegistration<?> registration = this.registrations.get(o.hashCode());
         if (registration != null){
             registration.unregister();
         }
@@ -46,21 +43,8 @@ public class ServiceExporter {
         this.registrations.clear();
     }
 
-    public Dictionary<String, String> createDefaultProperties(String id) {
-        return createDefaultProperties(id, new Hashtable<String, String>());
+    public Dictionary<String, String> createDefaultProperties() {
+        return new Hashtable<>();
     }
-
-    private Dictionary<String,String> createDefaultProperties(String id, Dictionary<String,String> properties) {
-        properties.put(SERVICE_ID_PROPERTY_KEY, id);
-        return properties;
-    }
-
-
-    private void checkIdNotRegistered(String id) {
-        if (registrations.containsKey(id)){
-            throw new IllegalArgumentException(String.format("could not register a service with id %s. A service with the same id is already registered", id));
-        }
-    }
-
 
 }

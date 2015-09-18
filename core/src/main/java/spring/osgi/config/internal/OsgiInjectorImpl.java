@@ -9,6 +9,7 @@ import spring.osgi.utils.ServiceExporter;
 import spring.osgi.utils.SingleServiceTracker;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
 
 /**
@@ -30,25 +31,23 @@ public class OsgiInjectorImpl implements OsgiInjector, DisposableBean {
     }
 
     @Override
-    public <T> void registerService(String id, T o, Class<T> clazz) {
-        this.exporter.registerService(id, o, clazz);
+    public <T> void registerService(T o, Class<T> clazz, Dictionary<String, String> properties) {
+        this.exporter.registerService(o, clazz, properties);
     }
 
     @Override
-    public void unregisterService(String id) {
-        this.exporter.unregister(id);
+    public void unregisterService(Object o) {
+        this.exporter.unregister(o);
     }
 
     @Override
-    public <T> void registerSingleton(Class<T> clazz) {
-        String beanName = getSingletonName(clazz);
-        this.exporter.registerService(beanName, applicationContext.getBean(clazz), clazz);
+    public <T> void registerSingleton(Class<T> clazz, Dictionary<String, String> properties) {
+        this.exporter.registerService(applicationContext.getBean(clazz), clazz, properties);
     }
 
     @Override
     public void unregisterSingleton(Class<?> clazz) {
-        String beanName = getSingletonName(clazz);
-        this.exporter.unregister(beanName);
+        this.exporter.unregister(applicationContext.getBean(clazz));
     }
 
     @Override
@@ -86,16 +85,5 @@ public class OsgiInjectorImpl implements OsgiInjector, DisposableBean {
             multipleServiceTracker.close();
         }
         this.multipleServiceTrackers.clear();
-    }
-
-    private <T> String getSingletonName(Class<T> clazz) {
-        String[] beanNames = applicationContext.getBeanNamesForType(clazz);
-        if (beanNames.length == 0){
-            throw new IllegalArgumentException(String.format("Could not register singleton with class[%s]. Singleton not found.", clazz));
-        }
-        if (beanNames.length > 1){
-            throw new IllegalArgumentException(String.format("Could not register singleton with class[%s]. Expected 1 singleton, found %d", clazz, beanNames.length));
-        }
-        return beanNames[0];
     }
 }
